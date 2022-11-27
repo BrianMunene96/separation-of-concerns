@@ -1,72 +1,99 @@
 <!DOCTYPE html>
 
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
 
-    <title>start from nothing!</title>
-    <meta name="description" content="start from nothing!" />
+<head>
+  <meta charset="utf-8" />
 
-    <link href="/lib/dom-manipulation/mocha/mocha.css" rel="stylesheet" />
-    <script src="/lib/dom-manipulation/mocha/mocha.js"></script>
-    <script src="/lib/dom-manipulation/assert.js"></script>
+  <title>start from nothing!</title>
+  <meta name="description" content="start from nothing!" />
 
-    <script src="/lib/dom-manipulation/test-the-dom.js"></script>
+  <link href="/lib/dom-manipulation/mocha/mocha.css" rel="stylesheet" />
+  <script src="/lib/dom-manipulation/mocha/mocha.js"></script>
+  <script src="/lib/dom-manipulation/assert.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="../style.css" />
-  </head>
+  <script src="/lib/dom-manipulation/test-the-dom.js"></script>
 
-  <body>
-    <header>
-      <h2>start from nothing!</h2>
-    </header>
+  <link rel="stylesheet" type="text/css" href="../style.css" />
+</head>
 
-    <section class="things-to-study">
-      <div id="side to inspect" class="exercise-output">
-        <div id="expected">
-          <h2>a list of things</h2>
-          <ul start="0">
-            <li>robots</li>
-            <li>solar systems</li>
-            <li>
-              <a href="https://www.badgerbadgerbadger.com" expected="_blank"
-                >learn about badgers</a
-              >
-            </li>
-            <li>oil</li>
-          </ul>
-        </div>
+<body>
+  <header>
+    <h2>start from nothing!</h2>
+  </header>
 
-        <div id="actual"></div>
-
-        <script id="dom-manipulation-script">
-          'use strict';
-          debugger;
-
-          // write me! (... without using cloneNode, that's kind of cheating)
-        </script>
+  <section class="things-to-study">
+    <div id="side to inspect" class="exercise-output">
+      <div id="expected">
+        <h2>a list of things</h2>
+        <ul start="0">
+          <li>robots</li>
+          <li>solar systems</li>
+          <li>
+            <a href="https://www.badgerbadgerbadger.com" expected="_blank">learn about badgers</a>
+          </li>
+          <li>oil</li>
+        </ul>
       </div>
 
-      <div id="mocha" class="mocha-output"></div>
+      <div id="actual"></div>
 
-      <script id="run the tests!">
-        mocha.setup({
-          ui: 'bdd',
-        });
-        compareElements.attributesToTest = [
-          'nodeName',
-          'innerText',
-          'href',
-          'expected',
-          'children',
-          'childElementCount',
-        ];
-        compareElements(
-          document.getElementById('actual'),
-          document.getElementById('expected'),
-        );
-        mocha.run();
+      <script id="dom-manipulation-script">
+        'use strict';
+        debugger;
+
+        // write me! (... without using cloneNode, that's kind of cheating)
+
+        const header = document.createElement('h2');
+        header.innerText = 'a list of things'
+
+        const unorderedList = document.createElement('ul');
+        unorderedList.start = '0';
+
+        const elements = ['robots', 'solar systems', 'oil'];
+
+        for (let element of elements) {
+          const liItems = document.createElement('li');
+          liItems.innerText = element;
+          unorderedList.appendChild(liItems);
+        }
+
+        const linkTag = document.createElement('a');
+        linkTag.href = 'https://www.badgerbadgerbadger.com';
+        linkTag.expected = '_blank'
+        linkTag.innerText = 'learn about badgers';
+        const linkTagLi = document.createElement('li');
+        linkTagLi.append(linkTag);
+
+        unorderedList.insertBefore(linkTagLi, unorderedList.children[2]);
+
+        actual.appendChild(header);
+        actual.appendChild(unorderedList);
+
       </script>
-    </section>
-  </body>
+    </div>
+
+    <div id="mocha" class="mocha-output"></div>
+
+    <script id="run the tests!">
+      mocha.setup({
+        ui: 'bdd',
+      });
+      compareElements.attributesToTest = [
+        'nodeName',
+        'innerText',
+        'href',
+        'expected',
+        'children',
+        'childElementCount',
+      ];
+      compareElements(
+        document.getElementById('actual'),
+        document.getElementById('expected'),
+      );
+      mocha.run();
+    </script>
+  </section>
+</body>
+
 </html>
