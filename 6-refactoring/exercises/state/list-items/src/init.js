@@ -1,4 +1,4 @@
-const bulletPoint = '*'; // data to refactor out of this file
+// const bulletPoint = '*'; // data to refactor out of this file
 
 document.getElementById('list-them').addEventListener('click', () => {
   // read & process user input
